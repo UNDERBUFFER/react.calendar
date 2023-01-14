@@ -21,7 +21,7 @@ export default function Tasks(props: TasksProps) {
 
       {props.tasks.map((val, idx) => (
         <div className='task-item' key={idx}>
-          <button>X</button>
+          <button onClick={() => props.onDelete(idx)}>X</button>
           <span>{val}</span>
         </div>
       ))}

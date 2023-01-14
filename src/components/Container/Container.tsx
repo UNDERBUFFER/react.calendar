@@ -39,6 +39,20 @@ export default function Container() {
     }))
   }
 
+  const deleteTask = (idx: number) => {
+    if (!dayInfo) {
+      return
+    }
+    const obj = findOrCreateDay(dayInfo.dayNum)
+    obj.tasks.splice(idx, 1)
+
+    setDays(days)
+    setDay((i) => ({
+      ...i,
+      ...obj,
+    }))
+  }
+
   return (
     <div className='container'>
       <div className='view'>
@@ -47,7 +61,10 @@ export default function Container() {
             tasks={dayInfo.tasks}
             onCreate={createTask}
             textAreaValue={textInTA}
-            onNowChange={(text: string) => {setTA(text)}}
+            onNowChange={(text: string) => {
+              setTA(text)
+            }}
+            onDelete={deleteTask}
           />
         ) : null}
         <Calendar days={days} onClick={renderTasksByDay} />
