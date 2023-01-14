@@ -1,3 +1,7 @@
+body {
+  --base-color: sandybrown;
+}
+
 .task-form {
   display: flex;
   flex-direction: column;
@@ -6,12 +10,12 @@
 .task-form textarea {
   height: 80px;
   resize: none;
-  background-color: sandybrown;
+  background-color: var(--base-color);
 }
 
 .task-item {
   min-height: 3vw;
-  background-color: sandybrown;
+  background-color: var(--base-color);
   margin-top: 5vh;
   display: flex;
   flex-direction: column;
