@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import './styles.css'
 import { DayType } from '../Calendar/types'
-import Tasks from '../Tasks/Tasks'
+import TasksContainer from '../TasksContainer/TasksContainer'
 import Calendar from '../Calendar/Calendar'
 
 export default function Container() {
   const [days, setDays] = useState<DayType[]>([])
   const [dayInfo, setDay] = useState<DayType | null>(null)
   const [textInTA, setTA] = useState('')
+  // const [usePagination, triggerPagination] = useState(false)
 
   const findOrCreateDay = (dayNum: number) => {
     let obj = days.find((i) => i.dayNum === dayNum)
@@ -57,7 +58,7 @@ export default function Container() {
     <div className='container'>
       <div className='view'>
         {dayInfo ? (
-          <Tasks
+          <TasksContainer
             tasks={dayInfo.tasks}
             onCreate={createTask}
             textAreaValue={textInTA}

@@ -1,0 +1,10 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-form textarea {
+  height: 80px;
+  resize: none;
+  background-color: var(--base-color);
+}

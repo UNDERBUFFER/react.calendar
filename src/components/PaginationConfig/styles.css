@@ -1,0 +1,12 @@
+.pagination-form {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagination-form > *:not(:first-child) {
+  margin-left: 5%;
+}
+
+.pagination-conf input {
+  width: 30%;
+}
