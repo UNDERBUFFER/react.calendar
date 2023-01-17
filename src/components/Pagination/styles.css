@@ -1,0 +1,14 @@
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.pagination-container button {
+    flex: 1
+}
+
+.pagination-container div {
+    text-align: center;
+    width: 50px;
+    border: 3px solid turquoise;
+}

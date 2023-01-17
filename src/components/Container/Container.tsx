@@ -8,7 +8,6 @@ export default function Container() {
   const [days, setDays] = useState<DayType[]>([])
   const [dayInfo, setDay] = useState<DayType | null>(null)
   const [textInTA, setTA] = useState('')
-  // const [usePagination, triggerPagination] = useState(false)
 
   const findOrCreateDay = (dayNum: number) => {
     let obj = days.find((i) => i.dayNum === dayNum)
@@ -26,11 +25,11 @@ export default function Container() {
   }
 
   const createTask = () => {
-    if (!dayInfo) {
+    if (!dayInfo || !textInTA) {
       return
     }
     const obj = findOrCreateDay(dayInfo.dayNum)
-    obj.tasks.push(textInTA)
+    obj.tasks.unshift(textInTA)
 
     setTA('')
     setDays(days)
