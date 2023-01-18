@@ -1,9 +1,10 @@
-export type DayType = {
+export type TaskType = {
+  id: number
+  text: string
   dayNum: number
-  tasks: string[]
 }
 
 export type CalendarProps = {
-  days: DayType[]
+  tasks: TaskType[]
   onClick: (day: number) => void
 }

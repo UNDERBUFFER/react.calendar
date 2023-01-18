@@ -1,73 +1,51 @@
 import React, { useState } from 'react'
 import './styles.css'
-import { DayType } from '../Calendar/types'
+import { TaskType } from '../Calendar/types'
 import TasksContainer from '../TasksContainer/TasksContainer'
 import Calendar from '../Calendar/Calendar'
 
 export default function Container() {
-  const [days, setDays] = useState<DayType[]>([])
-  const [dayInfo, setDay] = useState<DayType | null>(null)
+  const [seq, updateSeq] = useState(1)
+  const [data, setData] = useState<TaskType[]>([])
+  const [dayNum, setDayNum] = useState(0)
   const [textInTA, setTA] = useState('')
 
-  const findOrCreateDay = (dayNum: number) => {
-    let obj = days.find((i) => i.dayNum === dayNum)
-    if (!obj) {
-      obj = { dayNum, tasks: [] }
-      days.push(obj)
-    }
-    return obj
-  }
-
-  const renderTasksByDay = (dayNum: number) => {
-    const obj = findOrCreateDay(dayNum)
-    setDays(days)
-    setDay(obj)
-  }
-
   const createTask = () => {
-    if (!dayInfo || !textInTA) {
+    if (dayNum && !textInTA) {
       return
     }
-    const obj = findOrCreateDay(dayInfo.dayNum)
-    obj.tasks.unshift(textInTA)
+
+    data.push({
+      id: seq,
+      text: textInTA,
+      dayNum,
+    })
+    updateSeq(seq + 1)
 
     setTA('')
-    setDays(days)
-    setDay((i) => ({
-      ...i,
-      ...obj,
-    }))
+    setData(data)
   }
 
-  const deleteTask = (idx: number) => {
-    if (!dayInfo) {
-      return
-    }
-    const obj = findOrCreateDay(dayInfo.dayNum)
-    obj.tasks.splice(idx, 1)
-
-    setDays(days)
-    setDay((i) => ({
-      ...i,
-      ...obj,
-    }))
+  let tasksByDay: TaskType[] = []
+  if (dayNum) {
+    tasksByDay = data
+      .filter((i) => i.dayNum === dayNum)
+      .sort((a, b) => b.id - a.id)
   }
 
   return (
     <div className='container'>
       <div className='view'>
-        {dayInfo ? (
+        {dayNum > 0 && (
           <TasksContainer
-            tasks={dayInfo.tasks}
+            tasks={tasksByDay}
             onCreate={createTask}
             textAreaValue={textInTA}
-            onNowChange={(text: string) => {
-              setTA(text)
-            }}
-            onDelete={deleteTask}
+            onNowChange={(text) => setTA(text)}
+            onDelete={(id) => setData(data.filter((i) => i.id !== id))}
           />
-        ) : null}
-        <Calendar days={days} onClick={renderTasksByDay} />
+        )}
+        <Calendar tasks={data} onClick={(dayNum) => setDayNum(dayNum)} />
       </div>
     </div>
   )

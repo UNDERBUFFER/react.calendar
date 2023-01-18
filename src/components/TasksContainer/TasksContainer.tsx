@@ -7,15 +7,15 @@ import TasksForm from '../TasksForm/TasksForm'
 import Pagination from '../Pagination/Pagination'
 
 export default function TasksContainer(props: TasksContainerProps) {
-  const tasksOnPage = 5
   let pagesCount = 1
-  let data = props.tasks.map((v, i) => ({ val: v, idx: i }))
+  let data = props.tasks
 
   const [usePagination, triggerPagination] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const [tasksOnPage, setTasksOnPage] = useState(5)
 
   if (usePagination) {
-    pagesCount = Math.ceil(props.tasks.length / tasksOnPage)
+    pagesCount = Math.ceil(data.length / tasksOnPage)
 
     data = data.slice(
       Math.max(currentPage - 1, 0) * tasksOnPage,
@@ -38,6 +38,10 @@ export default function TasksContainer(props: TasksContainerProps) {
         selected={usePagination}
         onCBChange={() => {
           triggerPagination(!usePagination)
+        }}
+        onInputChange={(val) => {
+          setTasksOnPage(val)
+          setCurrentPage(1)
         }}
       />
 

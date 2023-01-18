@@ -16,6 +16,16 @@ export default function PaginationConfig(props: PaginationConfigProps) {
         />
         <label htmlFor='up'>Use pagintaion?</label>
       </div>
+      {props.selected && (
+        <div className='pagination-conf'>
+          <input
+            type='number'
+            min='5'
+            defaultValue={5}
+            onChange={(e) => props.onInputChange(+e.target.value)}
+          />
+        </div>
+      )}
     </div>
   )
 }

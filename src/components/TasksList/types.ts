@@ -1,4 +1,6 @@
+import { TaskType } from '../Calendar/types'
+
 export type TasksListProps = {
-  tasks: {val: string, idx: number}[]
+  tasks: Pick<TaskType, 'id' | 'text'>[]
   onDelete: (id: number) => void
 }
